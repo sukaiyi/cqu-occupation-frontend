@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Row, Col, Icon, Menu, Dropdown } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import { getTimeDistance } from '@/utils/utils';
-import styles from './Analysis.less';
+import styles from './Home.less';
 import PageLoading from '@/components/PageLoading';
 
 const IntroduceRow = React.lazy(() => import('./IntroduceRow'));
@@ -16,7 +16,7 @@ const OfflineData = React.lazy(() => import('./OfflineData'));
   chart,
   loading: loading.effects['chart/fetch'],
 }))
-class Analysis extends Component {
+class Home extends Component {
   state = {
     salesType: 'all',
     currentTabKey: '',
@@ -181,4 +181,4 @@ class Analysis extends Component {
   }
 }
 
-export default Analysis;
+export default Home;

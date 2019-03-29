@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Card, Radio } from 'antd';
 import { FormattedMessage } from 'umi-plugin-react/locale';
-import styles from './Analysis.less';
+import styles from './Home.less';
 import { Pie } from '@/components/Charts';
 import Yuan from '@/utils/Yuan';
 

@@ -86,9 +86,6 @@ export default function request(url, option) {
   };
   const newOptions = { ...defaultOptions, ...options };
   const token = localStorage.getItem('cqu-occupation-token');
-  if (token) {
-    newOptions.headers.token = token;
-  }
   if (
     newOptions.method === 'POST' ||
     newOptions.method === 'PUT' ||
@@ -108,6 +105,13 @@ export default function request(url, option) {
         ...newOptions.headers,
       };
     }
+  }
+
+  if (token) {
+    newOptions.headers = {
+      token: token,
+      ...newOptions.headers,
+    };
   }
 
   const expirys = options.expirys && 60;

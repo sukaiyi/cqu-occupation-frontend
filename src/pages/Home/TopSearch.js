@@ -3,7 +3,7 @@ import { Row, Col, Table, Tooltip, Card, Icon } from 'antd';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import Trend from '@/components/Trend';
 import numeral from 'numeral';
-import styles from './Analysis.less';
+import styles from './Home.less';
 import NumberInfo from '@/components/NumberInfo';
 import { MiniArea } from '@/components/Charts';
 

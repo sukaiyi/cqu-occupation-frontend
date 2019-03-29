@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Row, Col, Card, Tabs, DatePicker } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import numeral from 'numeral';
-import styles from './Analysis.less';
+import styles from './Home.less';
 import { Bar } from '@/components/Charts';
 
 const { RangePicker } = DatePicker;
