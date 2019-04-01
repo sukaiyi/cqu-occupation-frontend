@@ -1,4 +1,4 @@
-import { queryCrawler, removeRule, addRule } from '@/services/api';
+import { queryCrawler, removeCrawler, addCrawler } from '@/services/api';
 
 export default {
   namespace: 'craw',
@@ -19,20 +19,22 @@ export default {
       });
     },
     * add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
+      yield call(addCrawler, payload);
+      if (callback) callback();
+      const response = yield call(queryCrawler);
       yield put({
         type: 'save',
         payload: response,
       });
-      if (callback) callback();
     },
     * remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
+      yield call(removeCrawler, payload);
+      if (callback) callback();
+      const response = yield call(queryCrawler);
       yield put({
         type: 'save',
         payload: response,
       });
-      if (callback) callback();
     },
   },
 

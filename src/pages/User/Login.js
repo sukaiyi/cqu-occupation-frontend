@@ -16,6 +16,11 @@ class LoginPage extends Component {
     type: 'account',
   };
 
+  componentDidMount() {
+    localStorage.removeItem('cqu-occupation-token');
+    localStorage.removeItem('cqu-occupation-authority');
+  }
+
   onTabChange = type => {
     this.setState({ type });
   };

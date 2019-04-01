@@ -7,7 +7,6 @@ import {
   Button,
   Modal,
   message,
-  Divider,
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -27,15 +26,30 @@ const CreateForm = Form.create()(props => {
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="新建爬虫"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="数据源">
+        {form.getFieldDecorator('dataSource', {
+          rules: [{ required: true, message: '请输入数据源！' }],
+        })(<Input />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="功能">
+        {form.getFieldDecorator('function')(<Input />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠策略">
+        {form.getFieldDecorator('sleepManner')(<Input />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠时间 X">
+        {form.getFieldDecorator('sleepT1')(<Input />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠时间 Y">
+        {form.getFieldDecorator('sleepT2')(<Input />)}
+      </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
-        {form.getFieldDecorator('desc', {
-          rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
-        })(<Input placeholder="请输入" />)}
+        {form.getFieldDecorator('describe')(<Input />)}
       </FormItem>
     </Modal>
   );
@@ -56,7 +70,7 @@ class TableList extends PureComponent {
   columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: 'crawlId',
     },
     {
       title: '数据源',
@@ -95,7 +109,9 @@ class TableList extends PureComponent {
       dataIndex: 'oper',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => {this.handleRemove(record)}}>删除</a>
+          <a onClick={() => {
+            this.handleRemove(record);
+          }}> 删除 </a>
         </Fragment>
       ),
     },
@@ -112,6 +128,7 @@ class TableList extends PureComponent {
     const { dispatch } = this.props;
     dispatch({
       type: 'craw/remove',
+      payload: [record.crawlId],
     });
   };
 
@@ -132,11 +149,9 @@ class TableList extends PureComponent {
     dispatch({
       type: 'craw/add',
       payload: {
-        desc: fields.desc,
+        ...fields
       },
     });
-
-    message.success('添加成功');
     this.handleModalVisible();
   };
 
@@ -156,7 +171,7 @@ class TableList extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+              <Button icon="pluc'ras" type="primary" onClick={() => this.handleModalVisible(true)}>
                 添加
               </Button>
             </div>

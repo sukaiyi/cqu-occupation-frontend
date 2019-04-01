@@ -64,9 +64,6 @@ const cachedSave = (response, hashcode) => {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
-  if (!url.startsWith('http')) {
-    url = `http://127.0.0.1:8888${url}`;
-  }
   const options = {
     expirys: isAntdPro(),
     ...option,
@@ -81,11 +78,7 @@ export default function request(url, option) {
     .update(fingerprint)
     .digest('hex');
 
-  const defaultOptions = {
-    credentials: 'include',
-  };
-  const newOptions = { ...defaultOptions, ...options };
-  const token = localStorage.getItem('cqu-occupation-token');
+  const newOptions = { ...options };
   if (
     newOptions.method === 'POST' ||
     newOptions.method === 'PUT' ||
@@ -106,7 +99,7 @@ export default function request(url, option) {
       };
     }
   }
-
+  const token = localStorage.getItem('cqu-occupation-token');
   if (token) {
     newOptions.headers = {
       token: token,

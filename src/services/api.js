@@ -10,7 +10,7 @@ export async function queryActivities() {
 }
 
 export async function queryCrawler(params) {
-  return request('/crawler/all', {
+  return request('/api/crawler/all', {
     method: 'POST',
     body: {
       ...params,
@@ -18,22 +18,18 @@ export async function queryCrawler(params) {
   });
 }
 
-export async function removeRule(params) {
-  return request('/api/rule', {
+export async function removeCrawler(params) {
+  return request('/api/crawler/delete', {
     method: 'POST',
-    body: {
-      ...params,
-      method: 'delete',
-    },
+    body: params,
   });
 }
 
-export async function addRule(params) {
-  return request('/api/rule', {
+export async function addCrawler(params) {
+  return request('/api/crawler/add', {
     method: 'POST',
     body: {
       ...params,
-      method: 'post',
     },
   });
 }
@@ -109,7 +105,7 @@ export async function updateFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request('/user/login', {
+  return request('/api/user/login', {
     method: 'POST',
     body: params,
   });
