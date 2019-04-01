@@ -59,6 +59,19 @@ export async function addCrawlerAccount(params) {
   });
 }
 
+export async function queryCrawlerAccountConn(params) {
+  return request('/api/crawlerAccountConn/all', {
+    method: 'POST',
+    body: {
+      ...params,
+    },
+  });
+}
+
+export async function toggleCrawlerAccountConn(params) {
+  return request(`/api/crawlerAccountConn/toggle?${stringify(params)}`);
+}
+
 export async function updateRule(params = {}) {
   return request(`/api/rule?${stringify(params.query)}`, {
     method: 'POST',

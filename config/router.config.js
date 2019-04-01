@@ -44,7 +44,7 @@ export default [
           {
             path: '/collection/crawlAccountMap',
             name: 'crawlAccountMap',
-            component: './Crawler/BasicList',
+            component: './Crawler/CrawlerAccountConn',
           },
         ],
       },
