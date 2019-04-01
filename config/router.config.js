@@ -34,17 +34,17 @@ export default [
           {
             path: '/collection/crawlState',
             name: 'crawlState',
-            component: './List/TableList',
+            component: './Crawler/CrawlerList',
           },
           {
             path: '/collection/crawlAccount',
             name: 'crawlAccount',
-            component: './List/TableList',
+            component: './Crawler/CrawlerAccountList',
           },
           {
             path: '/collection/crawlAccountMap',
             name: 'crawlAccountMap',
-            component: './List/TableList',
+            component: './Crawler/BasicList',
           },
         ],
       },

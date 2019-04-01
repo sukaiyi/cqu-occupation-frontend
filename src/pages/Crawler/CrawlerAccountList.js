@@ -6,12 +6,11 @@ import {
   Input,
   Button,
   Modal,
-  message,
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
-import styles from './TableList.less';
+import styles from './CrawlerListAccount.less';
 
 const FormItem = Form.Item;
 const CreateForm = Form.create()(props => {
@@ -26,42 +25,36 @@ const CreateForm = Form.create()(props => {
   return (
     <Modal
       destroyOnClose
-      title="新建爬虫"
+      title="新建爬虫账号"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="数据源">
-        {form.getFieldDecorator('dataSource', {
-          rules: [{ required: true, message: '请输入数据源！' }],
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="账号">
+        {form.getFieldDecorator('accountNumber', {
+          rules: [{ required: true, message: '请输入账号！' }],
         })(<Input />)}
       </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="功能">
-        {form.getFieldDecorator('function')(<Input />)}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="密码">
+        {form.getFieldDecorator('password')(<Input />)}
       </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠策略">
-        {form.getFieldDecorator('sleepManner')(<Input />)}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="数据源ID">
+        {form.getFieldDecorator('sourceId')(<Input />)}
       </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠时间 X">
-        {form.getFieldDecorator('sleepT1')(<Input />)}
-      </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="休眠时间 Y">
-        {form.getFieldDecorator('sleepT2')(<Input />)}
-      </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
-        {form.getFieldDecorator('describe')(<Input />)}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="账号状态">
+        {form.getFieldDecorator('status')(<Input />)}
       </FormItem>
     </Modal>
   );
 });
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ craw, loading }) => ({
-  craw,
-  loading: loading.models.craw,
+@connect(({ crawAccount, loading }) => ({
+  crawAccount,
+  loading: loading.models.crawAccount,
 }))
 @Form.create()
-class TableList extends PureComponent {
+class CrawlerAccountList extends PureComponent {
   state = {
     modalVisible: false,
     selectedRows: [],
@@ -70,35 +63,23 @@ class TableList extends PureComponent {
   columns = [
     {
       title: 'ID',
-      dataIndex: 'crawlId',
+      dataIndex: 'id',
     },
     {
-      title: '数据源',
-      dataIndex: 'dataSource',
+      title: '账号',
+      dataIndex: 'accountNumber',
     },
     {
-      title: '功能',
-      dataIndex: 'function',
+      title: '密码',
+      dataIndex: 'password',
     },
     {
-      title: '状态',
-      dataIndex: 'state',
+      title: '数据源ID',
+      dataIndex: 'sourceId',
     },
     {
-      title: '休眠策略',
-      dataIndex: 'sleepManner',
-    },
-    {
-      title: '休眠时间 X',
-      dataIndex: 'sleepT1',
-    },
-    {
-      title: '休眠时间 Y',
-      dataIndex: 'sleepT2',
-    },
-    {
-      title: '描述',
-      dataIndex: 'describe',
+      title: '账号状态',
+      dataIndex: 'status',
     },
     {
       title: '更新时间',
@@ -120,15 +101,15 @@ class TableList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'craw/fetch',
+      type: 'crawAccount/fetch',
     });
   }
 
   handleRemove = record => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'craw/remove',
-      payload: [record.crawlId],
+      type: 'crawAccount/remove',
+      payload: [record.id]
     });
   };
 
@@ -147,7 +128,7 @@ class TableList extends PureComponent {
   handleAdd = fields => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'craw/add',
+      type: 'crawAccount/add',
       payload: {
         ...fields
       },
@@ -157,7 +138,7 @@ class TableList extends PureComponent {
 
   render() {
     const {
-      craw: { data },
+      crawAccount: { data },
       loading,
     } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -167,11 +148,11 @@ class TableList extends PureComponent {
       handleModalVisible: this.handleModalVisible,
     };
     return (
-      <PageHeaderWrapper title="爬虫状态">
+      <PageHeaderWrapper title="爬虫账号">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
-              <Button icon="pluc'ras" type="primary" onClick={() => this.handleModalVisible(true)}>
+              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
                 添加
               </Button>
             </div>
@@ -190,4 +171,4 @@ class TableList extends PureComponent {
   }
 }
 
-export default TableList;
+export default CrawlerAccountList;

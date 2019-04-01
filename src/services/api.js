@@ -34,6 +34,31 @@ export async function addCrawler(params) {
   });
 }
 
+export async function queryCrawlerAccount(params) {
+  return request('/api/crawlerAccount/all', {
+    method: 'POST',
+    body: {
+      ...params,
+    },
+  });
+}
+
+export async function removeCrawlerAccount(params) {
+  return request('/api/crawlerAccount/delete', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function addCrawlerAccount(params) {
+  return request('/api/crawlerAccount/add', {
+    method: 'POST',
+    body: {
+      ...params,
+    },
+  });
+}
+
 export async function updateRule(params = {}) {
   return request(`/api/rule?${stringify(params.query)}`, {
     method: 'POST',
