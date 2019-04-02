@@ -95,6 +95,15 @@ export async function queryUserInfoDetail(id) {
   return request(`/api/userInfo/detail?id=${id}`);
 }
 
+export async function updateUserInfo(params) {
+  return request('/api/userInfo/update', {
+    method: 'POST',
+    body: {
+      ...params,
+    },
+  });
+}
+
 export async function removeUserInfo(params) {
   return request('/api/userInfo/delete', {
     method: 'POST',

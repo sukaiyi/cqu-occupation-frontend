@@ -84,9 +84,8 @@ class UserInfoDetail extends Component {
               <DescriptionList size="large" title="基本信息" style={{ marginBottom: 32 }}>
                 <Description term="姓名">{detail.name}</Description>
                 <Description term="真实姓名">{detail.realname}</Description>
-                <Description term="家乡">{detail.city}</Description>
+                <Description term="家乡">{detail.htProvince}</Description>
                 <Description term="性别">{detail.gender === '1' ? '男' : '女'}</Description>
-                <Description term="生日">{detail.birthday}</Description>
                 <Description term="星座">{detail.xingzuo}</Description>
                 <Description term="领域">{detail.field}</Description>
                 <Description term="职业">{detail.profession}</Description>

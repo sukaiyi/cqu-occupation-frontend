@@ -8,6 +8,7 @@ export default {
   'menu.data': '数据管理',
   'menu.data.list': '数据管理',
   'menu.data.detail': '数据详情',
+  'menu.data.edit': '编辑',
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',
   'menu.form.stepform': '分步表单',

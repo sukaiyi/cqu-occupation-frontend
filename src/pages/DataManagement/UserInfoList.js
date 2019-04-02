@@ -74,7 +74,7 @@ class UserInfoList extends PureComponent {
           </a>
           <Divider type="vertical" />
           <a onClick={() => {
-            this.handleRemove(record);
+            router.push(`/data/edit/${record.id}`);
           }}
           > 编辑 
           </a>

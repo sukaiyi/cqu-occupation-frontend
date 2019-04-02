@@ -65,6 +65,12 @@ export default [
             hideInMenu: true,
             component: './DataManagement/UserInfoDetail',
           },
+          {
+            path: '/data/edit/:id',
+            name: 'edit',
+            hideInMenu: true,
+            component: './DataManagement/UserInfoEdit',
+          },
         ],
       },
       // forms

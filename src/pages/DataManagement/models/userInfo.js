@@ -1,4 +1,4 @@
-import { queryUserInfo, removeUserInfo,queryUserInfoDetail } from '@/services/api';
+import { queryUserInfo, removeUserInfo, queryUserInfoDetail, updateUserInfo} from '@/services/api';
 
 export default {
   namespace: 'userInfo',
@@ -19,8 +19,16 @@ export default {
         payload: response,
       });
     },
-    * fetchDetail({ payload }, { call, put }) {
+    * fetchDetail({ payload, callback}, { call, put }) {
       const response = yield call(queryUserInfoDetail, payload);
+      if (callback) callback(response);
+      yield put({
+        type: 'detail',
+        payload: response,
+      });
+    },
+    * update({ payload }, { call, put }) {
+      const response = yield call(updateUserInfo, payload);
       yield put({
         type: 'detail',
         payload: response,
