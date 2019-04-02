@@ -31,6 +31,7 @@ const getValue = obj =>
 class UserInfoList extends PureComponent {
   state = {
     selectedRows: [],
+    path: "/data/list",
   };
 
   columns = [
@@ -65,35 +66,50 @@ class UserInfoList extends PureComponent {
     {
       title: '操作',
       dataIndex: 'oper',
-      render: (text, record) => (
-        <Fragment>
-          <a onClick={() => {
-            router.push(`/data/detail/${record.id}`);
-          }}
-          > 查看详情 
-          </a>
-          <Divider type="vertical" />
-          <a onClick={() => {
-            router.push(`/data/edit/${record.id}`);
-          }}
-          > 编辑 
-          </a>
-          <Divider type="vertical" />
-          <a onClick={() => {
-            this.handleRemove(record);
-          }}
-          > 删除 
-          </a>
-        </Fragment>
-      ),
+      render: (text, record) => {
+        const { path } = this.state;
+        const actions = {
+          '/data/list': (
+            <Fragment>
+              <a onClick={() => {
+                router.push(`/data/detail/${record.id}`);
+              }}
+              > 查看详情
+              </a>
+              <Divider type="vertical" />
+              <a onClick={() => {
+                router.push(`/data/edit/${record.id}`);
+              }}
+              > 编辑
+              </a>
+              <Divider type="vertical" />
+              <a onClick={() => {
+                this.handleRemove(record);
+              }}
+              > 删除
+              </a>
+            </Fragment>),
+          '/report/list': (
+            <Fragment>
+              <a onClick={() => {
+                router.push(`/report/page/${record.id}`);
+              }}
+              > 查看评估报告
+              </a>
+            </Fragment>
+          ),
+        };
+        return actions[path];
+      },
     },
   ];
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, match: { path } } = this.props;
     dispatch({
       type: 'userInfo/fetch',
     });
+    this.setState({path});
   }
 
   handleRemove = record => {
@@ -239,10 +255,13 @@ class UserInfoList extends PureComponent {
       userInfo: { data },
       loading,
     } = this.props;
-    const { selectedRows } = this.state;
-
+    const { selectedRows, path } = this.state;
+    const headers = {
+      '/data/list': '数据管理',
+      '/report/list': '职业征信评估',
+    };
     return (
-      <PageHeaderWrapper title="数据管理">
+      <PageHeaderWrapper title={headers[path]}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

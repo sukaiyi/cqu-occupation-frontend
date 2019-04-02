@@ -73,6 +73,25 @@ export default [
           },
         ],
       },
+      {
+        path: '/report',
+        name: 'report',
+        icon: 'profile',
+        routes: [
+          { path: '/', redirect: '/page' },
+          {
+            path: '/report/list',
+            name: 'list',
+            component: './DataManagement/UserInfoList',
+          },
+          {
+            path: '/report/page/:id',
+            hideInMenu: true,
+            name: 'page',
+            component: './DataManagement/UserInfoReport',
+          },
+        ],
+      },
       // forms
       {
         path: '/form',

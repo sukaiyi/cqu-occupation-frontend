@@ -140,7 +140,6 @@ class UserInfoFrom extends PureComponent {
     const { submitting, refreshing } = this.props;
     const { form: { getFieldDecorator } } = this.props;
     const { modalState, userInfoDetail: { impTagList = [], proTagList = [] } } = this.state;
-    console.log(impTagList, proTagList);
     const parentMethods = {
       handleAdd: this.handleAddTag,
       handleModalState: this.handleModalState,

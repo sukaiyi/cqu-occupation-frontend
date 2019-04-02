@@ -1,4 +1,4 @@
-import { queryUserInfo, removeUserInfo, queryUserInfoDetail, updateUserInfo} from '@/services/api';
+import { queryUserInfo, removeUserInfo, queryUserInfoDetail, updateUserInfo, queryUserInfoStatistics} from '@/services/api';
 
 export default {
   namespace: 'userInfo',
@@ -24,6 +24,15 @@ export default {
       if (callback) callback(response);
       yield put({
         type: 'detail',
+        payload: response,
+      });
+    },
+    * fetchDetailStatistics({ payload}, { call, put }) {
+      const detailResponse = yield call(queryUserInfoDetail, payload);
+      const statisticsResponse = yield call(queryUserInfoStatistics, payload);
+      const response = [detailResponse, statisticsResponse];
+      yield put({
+        type: 'statistics',
         payload: response,
       });
     },
@@ -61,6 +70,12 @@ export default {
     detail(state, action) {
       return {
         detail: action.payload.obj
+      };
+    },
+    statistics(state, action) {
+      return {
+        detail: action.payload[0].obj,
+        statistics: action.payload[1].obj
       };
     },
   },
