@@ -82,6 +82,26 @@ export async function updateRule(params = {}) {
   });
 }
 
+export async function queryUserInfo(params) {
+  return request('/api/userInfo/all', {
+    method: 'POST',
+    body: {
+      ...params,
+    },
+  });
+}
+
+export async function queryUserInfoDetail(id) {
+  return request(`/api/userInfo/detail?id=${id}`);
+}
+
+export async function removeUserInfo(params) {
+  return request('/api/userInfo/delete', {
+    method: 'POST',
+    body: params,
+  });
+}
+
 export async function fakeSubmitForm(params) {
   return request('/api/forms', {
     method: 'POST',

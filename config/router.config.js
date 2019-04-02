@@ -48,6 +48,25 @@ export default [
           },
         ],
       },
+      {
+        path: '/data',
+        name: 'data',
+        icon: 'file',
+        routes: [
+          { path: '/', redirect: '/list' },
+          {
+            path: '/data/list',
+            name: 'list',
+            component: './DataManagement/UserInfoList',
+          },
+          {
+            path: '/data/detail/:id',
+            name: 'detail',
+            hideInMenu: true,
+            component: './DataManagement/UserInfoDetail',
+          },
+        ],
+      },
       // forms
       {
         path: '/form',
