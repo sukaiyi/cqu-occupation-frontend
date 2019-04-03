@@ -7,6 +7,7 @@ import {
   Card,
   Form,
   Input,
+  Divider,
   Button, Modal,
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
@@ -17,7 +18,7 @@ import styles from './UserList.less';
 const FormItem = Form.Item;
 
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, initValue } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -35,6 +36,7 @@ const CreateForm = Form.create()(props => {
     >
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="用户名">
         {form.getFieldDecorator('username', {
+          initialValue: initValue.username,
           rules: [{ required: true, message: '请输入用户名！' }],
         })(<Input />)}
       </FormItem>
@@ -44,8 +46,10 @@ const CreateForm = Form.create()(props => {
         })(<Input />)}
       </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="用户类型">
-        {form.getFieldDecorator('type')(
-          <Select placeholder="请选择" style={{ width: '100%' }} defaultValue="1">
+        {form.getFieldDecorator('type',{
+          initialValue: `${initValue.type||'1'}`,
+        })(
+          <Select placeholder="请选择" style={{ width: '100%' }}>
             <Select.Option value="1">普通用户</Select.Option>
             <Select.Option value="2">管理员</Select.Option>
             <Select.Option value="3">超级管理员</Select.Option>
@@ -70,6 +74,7 @@ const getValue = obj =>
 class UserList extends PureComponent {
   state = {
     modalVisible: false,
+    modalInitValue: {},
     selectedRows: [],
   };
 
@@ -106,6 +111,12 @@ class UserList extends PureComponent {
         return (
           <Fragment>
             <a onClick={() => {
+              this.handleEdit(record);
+            }}
+            > 编辑
+            </a>
+            <Divider type="vertical" />
+            <a onClick={() => {
               this.handleRemove(record);
             }}
             > 删除
@@ -131,20 +142,39 @@ class UserList extends PureComponent {
     });
   };
 
+  handleEdit = record => {
+    this.setState({
+      modalVisible: true,
+      modalInitValue: {...record}
+    });
+  };
+
   handleAdd = fields => {
     const { dispatch } = this.props;
-    dispatch({
-      type: 'user/add',
-      payload: {
-        ...fields
-      },
-    });
+    const { modalInitValue } = this.state;
+    if(modalInitValue.id){
+      dispatch({
+        type: 'user/update',
+        payload: {
+          ...modalInitValue,
+          ...fields
+        },
+      });
+    }else{
+      dispatch({
+        type: 'user/add',
+        payload: {
+          ...fields
+        },
+      });
+    }
     this.handleModalVisible();
   };
 
   handleModalVisible = flag => {
     this.setState({
       modalVisible: !!flag,
+      modalInitValue: {},
     });
   };
 
@@ -232,7 +262,7 @@ class UserList extends PureComponent {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
     };
-    const { selectedRows, modalVisible } = this.state;
+    const { selectedRows, modalVisible, modalInitValue } = this.state;
     return (
       <PageHeaderWrapper title="用户管理">
         <Card bordered={false}>
@@ -253,7 +283,7 @@ class UserList extends PureComponent {
             />
           </div>
         </Card>
-        <CreateForm {...parentMethods} modalVisible={modalVisible} />
+        <CreateForm {...parentMethods} modalVisible={modalVisible} initValue={modalInitValue} />
       </PageHeaderWrapper>
     );
   }

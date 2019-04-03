@@ -1,4 +1,4 @@
-import { query as queryUsers, queryCurrent, addUser,removeUser } from '@/services/user';
+import { query as queryUsers, queryCurrent, addUser,removeUser,updateUser } from '@/services/user';
 
 export default {
   namespace: 'user',
@@ -10,7 +10,8 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(queryUsers, payload);
+      const rawPayload = payload ? { ...payload, pageNum: payload.pageNum - 1 } : payload;
+      const response = yield call(queryUsers, rawPayload);
       yield put({
         type: 'save',
         payload: response,
@@ -18,6 +19,14 @@ export default {
     },
     *add({ payload }, { call, put }) {
       yield call(addUser, payload);
+      const response = yield call(queryUsers);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
+    *update({ payload }, { call, put }) {
+      yield call(updateUser, payload);
       const response = yield call(queryUsers);
       yield put({
         type: 'save',
@@ -48,7 +57,7 @@ export default {
         data: {
           list: action.payload.obj.content,
           pagination:{
-            current: action.payload.obj.number,
+            current: action.payload.obj.number + 1,
             pageSize: action.payload.obj.size,
             total: action.payload.obj.totalElements,
           }
