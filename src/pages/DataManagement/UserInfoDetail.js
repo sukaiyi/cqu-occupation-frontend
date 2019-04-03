@@ -43,7 +43,7 @@ class UserInfoDetail extends Component {
       {
         dataIndex: 'degree',
         title: '学历',
-        render: (value) => {
+        render: value => {
           return Degree[value] || '未知';
         },
       },
@@ -105,10 +105,7 @@ class UserInfoDetail extends Component {
                 style={{ width: 160 }}
                 cover={<img alt="example" src={detail.avatar} />}
               >
-                <Card.Meta
-                  title={detail.name}
-                  description={detail.position}
-                />
+                <Card.Meta title={detail.name} description={detail.position} />
               </Card>
             </Col>
           </Row>
@@ -127,7 +124,7 @@ class UserInfoDetail extends Component {
               return <Tag>{tag}</Tag>;
             })}
           </div>
-          <Divider style={{ marginBottom: 32 }}/>
+          <Divider style={{ marginBottom: 32 }} />
           <div className={styles.title}>教育经历</div>
           <Table
             style={{ marginBottom: 24 }}

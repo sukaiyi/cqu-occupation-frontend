@@ -24,10 +24,12 @@ export default [
         path: '/home',
         name: 'home',
         icon: 'home',
+
         component: './Home/Home',
       },
       {
         path: '/collection',
+
         name: 'collection',
         icon: 'dashboard',
         routes: [
@@ -67,6 +69,7 @@ export default [
           },
           {
             path: '/data/edit/:id',
+            authority: ['3'],
             name: 'edit',
             hideInMenu: true,
             component: './DataManagement/UserInfoEdit',
@@ -86,6 +89,7 @@ export default [
           },
           {
             path: '/report/page/:id',
+            authority: ['2', '3'],
             hideInMenu: true,
             name: 'page',
             component: './DataManagement/UserInfoReport',
@@ -94,6 +98,7 @@ export default [
       },
       {
         path: '/system',
+        authority: ['3'],
         name: 'system',
         icon: 'setting',
         routes: [
