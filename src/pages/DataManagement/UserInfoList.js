@@ -15,7 +15,19 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import router from 'umi/router';
 
 import styles from './UserInfoList.less';
-
+const Degree = {
+  '0': '专科',
+  '1': '本科',
+  '2': '硕士',
+  '3': '博士',
+  '4': '博士后',
+  '5': '其他（短期培训,进修课程等）',
+  '6': '小学',
+  '7': '初中',
+  '8': '中专',
+  '9': '高中',
+  '255': '错误值',
+};
 const FormItem = Form.Item;
 const getValue = obj =>
   Object.keys(obj)
@@ -161,6 +173,9 @@ class UserInfoList extends PureComponent {
       if (fieldsValue.gender && fieldsValue.gender !== '-1') {
         condition.push({ field: 'gender', value: fieldsValue.gender });
       }
+      if (fieldsValue.degree && fieldsValue.degree !== '-1') {
+        condition.push({ field: 'degree', value: fieldsValue.degree });
+      }
       if (fieldsValue.field2 && fieldsValue.field2 !== '全部') {
         condition.push({ field: 'field2', value: fieldsValue.field2, comparator: 'CN' });
       }
@@ -195,6 +210,10 @@ class UserInfoList extends PureComponent {
     const {
       form: { getFieldDecorator },
     } = this.props;
+    const degree = [];
+    for (const key in Degree) {
+      degree.push(<Select.Option value={key}>{Degree[key]}</Select.Option>);
+    }
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -230,7 +249,8 @@ class UserInfoList extends PureComponent {
             <FormItem label="学历">
               {getFieldDecorator('degree')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Select.Option value="0" disabled>暂未实现</Select.Option>
+                  <Select.Option value="-1">全部</Select.Option>
+                  {degree}
                 </Select>,
               )}
             </FormItem>

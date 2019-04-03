@@ -60,8 +60,8 @@ class Bar extends Component {
       title,
       forceFit = true,
       data,
-      color = 'rgba(24, 144, 255, 0.85)',
       padding,
+      barColor = {},
     } = this.props;
 
     const { autoHideXLabels } = this.state;
@@ -102,7 +102,12 @@ class Bar extends Component {
             />
             <Axis name="y" min={0} />
             <Tooltip showTitle={false} crosshairs={false} />
-            <Geom type="interval" position="x*y" color={color} tooltip={tooltip} />
+            <Geom
+              type="interval"
+              position="x*y"
+              color={['x', (x) => barColor[x] ? barColor[x] : 'rgba(24, 144, 255, 0.85)']}
+              tooltip={tooltip}
+            />
           </Chart>
         </div>
       </div>

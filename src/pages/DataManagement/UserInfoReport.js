@@ -40,13 +40,16 @@ class UserInfoReport extends Component {
     const { userInfo = {}, loading } = this.props;
     const { detail = {}, statistics = {}} = userInfo;
     const { impTagList = [], proTagList = [], eduExp = [], workExp = [] } = detail;
-    const { eduDistribution = {} } = statistics;
+    const { eduDistribution = {}, thisDegree, } = statistics;
     const eduDistributionChartData = [];
+    const eduDistributionColor = {};
     for (const key in eduDistribution) {
       eduDistributionChartData.push({
         x: `${Degree[`${key}`]}`,
         y: eduDistribution[key],
       });
+
+      eduDistributionColor[`${Degree[`${key}`]}`] = `${thisDegree}` === `${key}` ? '#00ffff' : '#00ff00';
     }
 
     const eduExpColumns = [
@@ -177,6 +180,7 @@ class UserInfoReport extends Component {
                 height={200}
                 title="学历分布图"
                 data={eduDistributionChartData}
+                barColor={eduDistributionColor}
                 autoLabel
               />
             </Col>

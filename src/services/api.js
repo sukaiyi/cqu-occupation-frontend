@@ -96,7 +96,11 @@ export async function queryUserInfoDetail(id) {
 }
 
 export async function queryUserInfoStatistics(id) {
-  return request(`/api/userInfo/statistics?id=${id}`);
+  let url = '/api/userInfo/statistics';
+  if (id) {
+    url += `?id=${id}`;
+  }
+  return request(url);
 }
 
 export async function updateUserInfo(params) {
