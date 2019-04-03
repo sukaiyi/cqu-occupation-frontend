@@ -13,8 +13,9 @@ import {
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import router from 'umi/router';
-
+import Authorized from '@/utils/Authorized';
 import styles from './UserInfoList.less';
+
 const Degree = {
   '0': '专科',
   '1': '本科',
@@ -95,26 +96,30 @@ class UserInfoList extends PureComponent {
               }}
               > 查看详情
               </a>
-              <Divider type="vertical" />
-              <a onClick={() => {
-                router.push(`/data/edit/${record.id}`);
-              }}
-              > 编辑
-              </a>
-              <Divider type="vertical" />
-              <a onClick={() => {
-                this.handleRemove(record);
-              }}
-              > 删除
-              </a>
+              <Authorized authority={['3']} noMatch={null}>
+                <Divider type="vertical" />
+                <a onClick={() => {
+                  router.push(`/data/edit/${record.id}`);
+                }}
+                > 编辑
+                </a>
+                <Divider type="vertical" />
+                <a onClick={() => {
+                  this.handleRemove(record);
+                }}
+                > 删除
+                </a>
+              </Authorized>
             </Fragment>),
           '/report/list': (
             <Fragment>
+              <Authorized authority={['2','3']} noMatch={null}>
               <a onClick={() => {
                 router.push(`/report/page/${record.id}`);
               }}
               > 查看评估报告
               </a>
+              </Authorized>
             </Fragment>
           ),
         };

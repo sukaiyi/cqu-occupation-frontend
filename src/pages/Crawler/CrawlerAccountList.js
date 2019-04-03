@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Authorized from '@/utils/Authorized';
 
 import styles from './CrawlerListAccount.less';
 
@@ -90,9 +91,11 @@ class CrawlerAccountList extends PureComponent {
       dataIndex: 'oper',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => {
-            this.handleRemove(record);
-          }}> 删除 </a>
+          <Authorized authority={['3']} noMatch={null}>
+            <a onClick={() => {
+              this.handleRemove(record);
+            }}> 删除 </a>
+          </Authorized>
         </Fragment>
       ),
     },
@@ -152,9 +155,11 @@ class CrawlerAccountList extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
-                添加
-              </Button>
+              <Authorized authority={['3']} noMatch={null}>
+                <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+                  添加
+                </Button>
+              </Authorized>
             </div>
             <StandardTable
               selectedRows={selectedRows}

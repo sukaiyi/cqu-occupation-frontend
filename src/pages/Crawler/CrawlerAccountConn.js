@@ -6,6 +6,7 @@ import {
   Table,
 } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Authorized from '@/utils/Authorized';
 
 import styles from './CrawlerAccountConn.less';
 
@@ -70,7 +71,11 @@ class CrawlerList extends PureComponent {
         dataIndex: `crawler_${e.crawlId}`,
         render: (value, record) => (
           <Fragment>
-            <Checkbox defaultChecked={value} onChange={()=>{this.onToggle(record.accountId, e.crawlId)}} />
+            <Authorized authority={['3']} noMatch={<Checkbox defaultChecked={value} disabled/>}>
+              <Checkbox defaultChecked={value} onChange={() => {
+                this.onToggle(record.accountId, e.crawlId);
+              }} />
+            </Authorized>
           </Fragment>
         ),
       };
