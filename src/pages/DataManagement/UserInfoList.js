@@ -58,6 +58,13 @@ class UserInfoList extends PureComponent {
     {
       title: '性别',
       dataIndex: 'gender',
+      render: (value)=>{
+        const map = {
+          '1': '男',
+          '2': '女',
+        };
+        return map[`${value}`];
+      }
     },
     {
       title: '公司',

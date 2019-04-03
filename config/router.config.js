@@ -92,94 +92,28 @@ export default [
           },
         ],
       },
-      // forms
       {
-        path: '/form',
-        icon: 'form',
-        name: 'form',
+        path: '/system',
+        name: 'system',
+        icon: 'setting',
         routes: [
+          { path: '/', redirect: '/system' },
           {
-            path: '/form/basic-form',
-            name: 'basicform',
-            component: './Forms/BasicForm',
+            path: '/system/users',
+            name: 'users',
+            component: './SystemManagement/UserList',
           },
           {
-            path: '/form/step-form',
-            name: 'stepform',
-            component: './Forms/StepForm',
-            hideChildrenInMenu: true,
-            routes: [
-              {
-                path: '/form/step-form',
-                redirect: '/form/step-form/info',
-              },
-              {
-                path: '/form/step-form/info',
-                name: 'info',
-                component: './Forms/StepForm/Step1',
-              },
-              {
-                path: '/form/step-form/confirm',
-                name: 'confirm',
-                component: './Forms/StepForm/Step2',
-              },
-              {
-                path: '/form/step-form/result',
-                name: 'result',
-                component: './Forms/StepForm/Step3',
-              },
-            ],
+            path: '/system/auth',
+            name: 'auth',
+            component: './SystemManagement/AuthDescription',
           },
-          {
-            path: '/form/advanced-form',
-            name: 'advancedform',
-            authority: ['admin'],
-            component: './Forms/AdvancedForm',
-          },
-        ],
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        icon: 'profile',
-        routes: [
-          // profile
-          {
-            path: '/profile/basic',
-            name: 'basic',
-            component: './Profile/BasicProfile',
-          },
-          {
-            path: '/profile/basic/:id',
-            name: 'basic',
-            hideInMenu: true,
-            component: './Profile/BasicProfile',
-          },
-          {
-            path: '/profile/advanced',
-            name: 'advanced',
-            authority: ['admin'],
-            component: './Profile/AdvancedProfile',
-          },
-        ],
-      },
-      {
-        name: 'result',
-        icon: 'check-circle-o',
-        path: '/result',
-        routes: [
-          // result
-          {
-            path: '/result/success',
-            name: 'success',
-            component: './Result/Success',
-          },
-          { path: '/result/fail', name: 'fail', component: './Result/Error' },
         ],
       },
       {
         name: 'exception',
         icon: 'warning',
+        hideInMenu: true,
         path: '/exception',
         routes: [
           // exception
@@ -210,6 +144,7 @@ export default [
         name: 'account',
         icon: 'user',
         path: '/account',
+        hideInMenu: true,
         routes: [
           {
             path: '/account/center',
@@ -264,28 +199,6 @@ export default [
         ],
       },
       //  editor
-      {
-        name: 'editor',
-        icon: 'highlight',
-        path: '/editor',
-        routes: [
-          {
-            path: '/editor/flow',
-            name: 'flow',
-            component: './Editor/GGEditor/Flow',
-          },
-          {
-            path: '/editor/mind',
-            name: 'mind',
-            component: './Editor/GGEditor/Mind',
-          },
-          {
-            path: '/editor/koni',
-            name: 'koni',
-            component: './Editor/GGEditor/Koni',
-          },
-        ],
-      },
       {
         component: '404',
       },

@@ -1,15 +1,31 @@
-import { query as queryUsers, queryCurrent } from '@/services/user';
+import { query as queryUsers, queryCurrent, addUser,removeUser } from '@/services/user';
 
 export default {
   namespace: 'user',
 
   state: {
-    list: [],
+    data: {},
     currentUser: {},
   },
 
   effects: {
-    *fetch(_, { call, put }) {
+    *fetch({ payload }, { call, put }) {
+      const response = yield call(queryUsers, payload);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
+    *add({ payload }, { call, put }) {
+      yield call(addUser, payload);
+      const response = yield call(queryUsers);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
+    *remove({ payload }, { call, put }) {
+      yield call(removeUser, payload);
       const response = yield call(queryUsers);
       yield put({
         type: 'save',
@@ -29,7 +45,14 @@ export default {
     save(state, action) {
       return {
         ...state,
-        list: action.payload,
+        data: {
+          list: action.payload.obj.content,
+          pagination:{
+            current: action.payload.obj.number,
+            pageSize: action.payload.obj.size,
+            total: action.payload.obj.totalElements,
+          }
+        },
       };
     },
     saveCurrentUser(state, action) {
