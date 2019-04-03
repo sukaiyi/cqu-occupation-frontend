@@ -184,6 +184,14 @@ class UserInfoReport extends Component {
                 autoLabel
               />
             </Col>
+            <Col span={12}>
+              <iframe
+                src={detail.dimissionRisk}
+                frameBorder={0}
+                width="100%"
+                height="200"
+                scrolling="no"/>
+            </Col>
           </Row>
         </Card>
       </PageHeaderWrapper>
