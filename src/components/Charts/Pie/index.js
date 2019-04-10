@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Chart, Tooltip, Geom, Coord } from 'bizcharts';
 import { DataView } from '@antv/data-set';
 import { Divider } from 'antd';
+import Ellipsis from '@/components/Ellipsis';
 import classNames from 'classnames';
 import ReactFitText from 'react-fittext';
 import Debounce from 'lodash-decorators/debounce';
@@ -253,7 +254,7 @@ class Pie extends Component {
                     backgroundColor: !item.checked ? '#aaa' : item.color,
                   }}
                 />
-                <span className={styles.legendTitle}>{item.x}</span>
+                <Ellipsis className={styles.legendTitle} length={8}>{item.x}</Ellipsis>
                 <Divider type="vertical" />
                 <span className={styles.percent}>
                   {`${(Number.isNaN(item.percent) ? 0 : item.percent * 100).toFixed(2)}%`}

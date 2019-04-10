@@ -6,6 +6,7 @@ import {
   Input,
   Button,
   Modal,
+  Icon,
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -81,10 +82,22 @@ class CrawlerAccountList extends PureComponent {
     {
       title: '账号状态',
       dataIndex: 'status',
+      render: value => {
+        if(value===1){
+          return <span>
+            <Icon type="smile" theme="twoTone" />
+            <span style={{color:"#0000ff",padding:"5px"}}>可用</span>
+          </span>;
+        }
+        return <span>
+          <Icon type="frown" theme="twoTone" twoToneColor="#ff0000" />
+          <span style={{color:"#ff0000",padding:"5px"}}>禁用</span>
+        </span>
+      }
     },
     {
       title: '更新时间',
-      dataIndex: 'update',
+      dataIndex: 'updateTime',
     },
     {
       title: '操作',

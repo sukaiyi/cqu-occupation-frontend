@@ -13,7 +13,7 @@ export default {
 
   effects: {
     * fetch({ payload }, { call, put }) {
-      const rawPayload = payload ? { ...payload, pageNum: payload.pageNum - 1 } : payload;
+      const rawPayload = payload ? { ...payload, pageNum: (payload.pageNum || 1) - 1 } : payload;
       const response = yield call(queryUserInfo, rawPayload);
       yield put({
         type: 'save',

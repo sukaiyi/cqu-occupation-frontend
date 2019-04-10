@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Card, Row, Col, Table, Divider, Tag } from 'antd';
+import { Card, Row, Col, Table, Divider, Tag, Progress  } from 'antd';
 import DescriptionList from '@/components/DescriptionList';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './UserInfoReport.less';
-import { Bar } from '@/components/Charts';
+import { Bar,Radar,Pie,ChartCard  } from '@/components/Charts';
 
 const Degree = {
   '0': '专科',
@@ -40,7 +40,7 @@ class UserInfoReport extends Component {
     const { userInfo = {}, loading } = this.props;
     const { detail = {}, statistics = {}} = userInfo;
     const { impTagList = [], proTagList = [], eduExp = [], workExp = [] } = detail;
-    const { eduDistribution = {}, thisDegree, } = statistics;
+    const { eduDistribution = {}, thisDegree, professionDistribution = {}, } = statistics;
     const eduDistributionChartData = [];
     const eduDistributionColor = {};
     for (const key in eduDistribution) {
@@ -52,6 +52,23 @@ class UserInfoReport extends Component {
       eduDistributionColor[`${Degree[`${key}`]}`] = `${thisDegree}` === `${key}` ? '#00ffff' : '#00ff00';
     }
 
+    let total = 0;
+    const professionDistributionChartData = [];
+    for (const key in professionDistribution) {
+      professionDistributionChartData.push({ x: key, y: professionDistribution[key] });
+      total += professionDistribution[key];
+    }
+
+    const radarChartData = [
+      { label: '互动数', value: detail.interactions },
+      { label: '动态数', value: detail.dongtai },
+      { label: '观点数', value: detail.guandian },
+      { label: '专栏数', value: detail.zhuanlan },
+      { label: '点评数', value: detail.dianping },
+      { label: '被点赞次数', value: detail.likes },
+      { label: '被访问次数', value: detail.views },
+      { label: '最后收到的Feed数', value: detail.recentFeeds },
+    ];
     const eduExpColumns = [
       {
         dataIndex: 'degree',
@@ -110,17 +127,8 @@ class UserInfoReport extends Component {
                 <Description term="公司地址">{detail.cmpAddress}</Description>
                 <Description term="一句话介绍自己">{detail.oneSentence}</Description>
                 <Description term="主页展示的介绍语言">{detail.headline}</Description>
-                <Description term="互动数">{detail.interactions}</Description>
-                <Description term="动态数">{detail.dongtai}</Description>
-                <Description term="观点数">{detail.guandian}</Description>
-                <Description term="专栏数">{detail.zhuanlan}</Description>
-                <Description term="点评数">{detail.dianping}</Description>
-                <Description term="被点赞次数">{detail.likes}</Description>
-                <Description term="被访问次数">{detail.views}</Description>
-                <Description term="最后收到的Feed数">{detail.recentFeeds}</Description>
                 <Description term="影响力">{detail.influence}</Description>
                 <Description term="影响力超过">{detail.infDefeat}</Description>
-                <Description term="资料完善度">{detail.infoRatio}</Description>
                 <Description term="更新时间">{detail.uptime}</Description>
               </DescriptionList>
             </Col>
@@ -135,8 +143,26 @@ class UserInfoReport extends Component {
                   description={detail.position}
                 />
               </Card>
+              <div style={{ width: 160, paddingTop: '20px' }}>
+                <h4>资料完善度</h4>
+                <Progress
+                  percent={detail.infoRatio}
+                  status="active"
+                  strokeColor={{
+                    from: '#108ee9',
+                    to: '#87d068',
+                  }}
+                />
+              </div>
             </Col>
           </Row>
+          <Divider style={{ marginBottom: 32 }} />
+
+          <div className={styles.title}>社交关系</div>
+          <Radar
+            height={280}
+            data={radarChartData}
+          />
           <Divider style={{ marginBottom: 32 }} />
 
           <div className={styles.title}>印象标签</div>
@@ -176,21 +202,40 @@ class UserInfoReport extends Component {
           <div className={styles.title}>统计表</div>
           <Row gutter={24}>
             <Col span={12}>
-              <Bar
-                height={200}
-                title="学历分布图"
-                data={eduDistributionChartData}
-                barColor={eduDistributionColor}
-                autoLabel
-              />
+              <ChartCard title="离职风险预警" contentHeight={200}>
+                <iframe
+                  title="离职风险预警图"
+                  src={detail.dimissionRisk}
+                  frameBorder={0}
+                  width="100%"
+                  height="200"
+                  scrolling="no"
+                />
+              </ChartCard>
             </Col>
             <Col span={12}>
-              <iframe
-                src={detail.dimissionRisk}
-                frameBorder={0}
-                width="100%"
-                height="200"
-                scrolling="no"/>
+              <ChartCard title="学历分布图" contentHeight={200}>
+                <Bar
+                  hasLegend
+                  data={eduDistributionChartData}
+                  barColor={eduDistributionColor}
+                  autoLabel
+                />
+              </ChartCard>
+            </Col>
+          </Row>
+          <Row gutter={24}>
+            <Col span={12}>
+              <ChartCard title="职业分布" contentHeight={300}>
+                <Pie
+                  hasLegend
+                  title="用户职业分布"
+                  subTitle="用户职业分布"
+                  total={() => total}
+                  data={professionDistributionChartData}
+                  valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+                />
+              </ChartCard>
             </Col>
           </Row>
         </Card>

@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Spin, Card } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { Bar, Pie } from '@/components/Charts';
 import styles from './Home.less';
 
@@ -74,63 +75,65 @@ class Home extends Component {
     }
 
     return (
-      <GridContent>
-        <Suspense fallback={null}>
-          <Spin spinning={loading}>
-            <Row gutter={24}>
-              <Col span={12}>
-                <Card>
-                  <Pie
-                    hasLegend
-                    title="用户行业分布"
-                    subTitle="用户行业分布"
-                    total={() => total}
-                    data={rawFieldDistribution}
-                    valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
-                    height={294}
-                  />
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card>
-                  <Pie
-                    hasLegend
-                    title="用户性别分布"
-                    subTitle="用户性别分布"
-                    total={() => total}
-                    data={rawGenderDistribution}
-                    valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
-                    height={294}
-                  />
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card>
-                  <Bar
-                    height={294}
-                    title="用户学历分布"
-                    data={rawEduDistribution}
-                    autoLabel
-                  />
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card>
-                  <Pie
-                    hasLegend
-                    title="用户职业分布"
-                    subTitle="用户职业分布"
-                    total={() => total}
-                    data={rawProfessionDistribution}
-                    valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
-                    height={294}
-                  />
-                </Card>
-              </Col>
-            </Row>
-          </Spin>
-        </Suspense>
-      </GridContent>
+      <PageHeaderWrapper title="大数据职业征信系统">
+        <GridContent>
+          <Suspense fallback={null}>
+            <Spin spinning={loading}>
+              <Row gutter={24}>
+                <Col span={12}>
+                  <Card>
+                    <Pie
+                      hasLegend
+                      title="用户行业分布"
+                      subTitle="用户行业分布"
+                      total={() => total}
+                      data={rawFieldDistribution}
+                      valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
+                      height={294}
+                    />
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card>
+                    <Pie
+                      hasLegend
+                      title="用户性别分布"
+                      subTitle="用户性别分布"
+                      total={() => total}
+                      data={rawGenderDistribution}
+                      valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
+                      height={294}
+                    />
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card>
+                    <Bar
+                      height={294}
+                      title="用户学历分布"
+                      data={rawEduDistribution}
+                      autoLabel
+                    />
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card>
+                    <Pie
+                      hasLegend
+                      title="用户职业分布"
+                      subTitle="用户职业分布"
+                      total={() => total}
+                      data={rawProfessionDistribution}
+                      valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
+                      height={294}
+                    />
+                  </Card>
+                </Col>
+              </Row>
+            </Spin>
+          </Suspense>
+        </GridContent>
+      </PageHeaderWrapper>
     );
   }
 }

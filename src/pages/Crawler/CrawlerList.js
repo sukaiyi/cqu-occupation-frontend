@@ -6,6 +6,7 @@ import {
   Input,
   Button,
   Modal,
+  Switch,
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -82,7 +83,15 @@ class CrawlerList extends PureComponent {
     },
     {
       title: '状态',
-      dataIndex: 'state',
+      dataIndex: 'status',
+      render: value => {
+        return <Switch
+          disabled
+          unCheckedChildren="关闭"
+          checkedChildren="开启"
+          defaultChecked={value===1}
+        />
+      }
     },
     {
       title: '休眠策略',
