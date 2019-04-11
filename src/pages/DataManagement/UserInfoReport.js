@@ -7,7 +7,7 @@ import styles from './UserInfoReport.less';
 import { Bar, Radar, Pie, ChartCard } from '@/components/Charts';
 
 const IconFont = Icon.createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_1134721_n33ksc5de2p.js',
+  scriptUrl: '//at.alicdn.com/t/font_1134721_3e6eg9n517d.js',
 });
 
 const Degree = {
