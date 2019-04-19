@@ -64,14 +64,14 @@ class UserInfoReport extends Component {
     }
 
     const radarChartData = [
-      { label: '互动数', value: detail.interactions === 0 ? 1 : Math.log10(detail.interactions) },
-      { label: '动态数', value: detail.dongtai === 0 ? 1 : Math.log10(detail.dongtai) },
-      { label: '观点数', value: detail.guandian === 0 ? 1 : Math.log10(detail.guandian) },
-      { label: '专栏数', value: detail.zhuanlan === 0 ? 1 : Math.log10(detail.zhuanlan) },
-      { label: '点评数', value: detail.dianping === 0 ? 1 : Math.log10(detail.dianping) },
-      { label: '被点赞次数', value: detail.likes === 0 ? 1 : Math.log10(detail.likes) },
-      { label: '被访问次数', value: detail.views === 0 ? 1 : Math.log10(detail.views) },
-      { label: '最后收到的Feed数', value: detail.recentFeeds === 0 ? 1 : Math.log10(detail.recentFeeds) },
+      { label: '互动数', value: Math.log10(detail.interactions + 2) },
+      { label: '动态数', value: Math.log10(detail.dongtai + 2) },
+      { label: '观点数', value: Math.log10(detail.guandian + 2) },
+      { label: '专栏数', value: Math.log10(detail.zhuanlan + 2) },
+      { label: '点评数', value: Math.log10(detail.dianping + 2) },
+      { label: '被点赞次数', value: Math.log10(detail.likes + 2) },
+      { label: '被访问次数', value: Math.log10(detail.views + 2) },
+      { label: '最后收到的Feed数', value: Math.log10(detail.recentFeeds + 2) },
     ];
     const eduExpColumns = [
       {
