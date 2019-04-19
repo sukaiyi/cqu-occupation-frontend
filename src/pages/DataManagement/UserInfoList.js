@@ -229,12 +229,12 @@ class UserInfoList extends PureComponent {
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col md={6} sm={24}>
             <FormItem label="请输入要搜索的姓名">
               {getFieldDecorator('name')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          <Col md={6} sm={24}>
             <FormItem label="性别">
               {getFieldDecorator('gender')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -245,7 +245,7 @@ class UserInfoList extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          <Col md={6} sm={24}>
             <FormItem label="行业">
               {getFieldDecorator('field2')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -257,7 +257,7 @@ class UserInfoList extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          <Col md={6} sm={24}>
             <FormItem label="学历">
               {getFieldDecorator('degree')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -267,7 +267,9 @@ class UserInfoList extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+        </Row>
+        <Row type="flex" justify="end">
+          <Col>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 查询

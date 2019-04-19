@@ -130,7 +130,8 @@ class UserInfoReport extends Component {
                 <Description term="最高学历">{detail.company}</Description>
                 <Description term="公司地址">{detail.cmpAddress}</Description>
                 <Description term="一句话介绍自己">{detail.oneSentence}</Description>
-                <Description term="主页展示的介绍语言">{detail.headline}</Description>
+              </DescriptionList>
+              <DescriptionList size="large" style={{ marginBottom: 32 }}>
                 <Description term="互动数">{detail.interactions}</Description>
                 <Description term="动态数">{detail.dongtai}</Description>
                 <Description term="观点数">{detail.guandian}</Description>
@@ -143,6 +144,9 @@ class UserInfoReport extends Component {
                 <Description term="影响力超过">{detail.infDefeat}</Description>
                 <Description term="资料完善度">{detail.infoRatio}</Description>
                 <Description term="更新时间">{detail.uptime}</Description>
+              </DescriptionList>
+              <DescriptionList col={1} size="large" style={{ marginBottom: 32 }}>
+                <Description term="主页展示的介绍语言">{detail.headline}</Description>
               </DescriptionList>
 
             </Col>
@@ -193,6 +197,8 @@ class UserInfoReport extends Component {
           <div className={styles.title}>社交关系</div>
           <Radar
             height={280}
+            tickCount={4}
+            max={8}
             data={radarChartData}
           />
           <Divider style={{ marginBottom: 32 }}/>

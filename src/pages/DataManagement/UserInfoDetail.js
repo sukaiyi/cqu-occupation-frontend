@@ -96,6 +96,8 @@ class UserInfoDetail extends Component {
                 <Description term="最高学历">{detail.company}</Description>
                 <Description term="公司地址">{detail.cmpAddress}</Description>
                 <Description term="一句话介绍自己">{detail.oneSentence}</Description>
+              </DescriptionList>
+              <DescriptionList size="large" col={1} style={{ marginBottom: 32 }}>
                 <Description term="主页展示的介绍语言">{detail.headline}</Description>
               </DescriptionList>
             </Col>

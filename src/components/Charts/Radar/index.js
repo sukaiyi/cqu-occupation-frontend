@@ -93,6 +93,8 @@ class Radar extends Component {
       hasLegend = false,
       forceFit = true,
       tickCount = 5,
+      min = 0,
+      max,
       padding = [35, 30, 16, 30],
       animate = true,
       colors = defaultColors,
@@ -102,8 +104,10 @@ class Radar extends Component {
 
     const scale = {
       value: {
-        min: 0,
+        min,
+        max,
         tickCount,
+        tickInterval:1,
       },
     };
 
