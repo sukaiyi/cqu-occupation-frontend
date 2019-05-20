@@ -58,8 +58,10 @@ class UserInfoReport extends Component {
 
     let total = 0;
     const professionDistributionChartData = [];
+    const professionDistributionColor = {};
     for (const key in professionDistribution) {
       professionDistributionChartData.push({ x: key, y: professionDistribution[key] });
+      professionDistributionColor[key] = `${detail.profession}` === `${key}` ? '#00ffff' : '#00ff00';
       total += professionDistribution[key];
     }
 
@@ -265,13 +267,12 @@ class UserInfoReport extends Component {
           <Row gutter={24}>
             <Col span={12}>
               <ChartCard title="职业分布" contentHeight={300}>
-                <Pie
+                <Bar
                   hasLegend
                   title="用户职业分布"
                   subTitle="用户职业分布"
-                  total={() => total}
+                  barColor={professionDistributionColor}
                   data={professionDistributionChartData}
-                  valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }}/>}
                 />
               </ChartCard>
             </Col>
